@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="/public/css/index.css" />
+  </head>
+  <body>
+    <div class="container flex-column flex-center">
+      <div class="card">
+      <h1>Weather App</h1>
+      <div id="weather" class="flex-column flex-center">
+        <div id="info">
+        <p id="name"></p>
+        <img id="icon" src=""></a>
+      </div>
+        <div id="temp">
+          <p id="actual"></p>
+          <p id="feels"></p>
+        </div>
+        <div>
+          <p id="humidity"></p>
+          <p id="wind"></p>
+        </div>
+      </div>
+      <form action="" method="post" class="flex-row flex-center">
+        <label for="city"></label>
+        <input
+          type="text"
+          city="city"
+          id="city"
+          required
+          class="text-box"
+          placeholder="City..."
+        />
+        <input type="submit" id="submit" value="Search" class="btn" />
+      </form>
+    </div>
+    </div>
+    <script src="/public/js/index.js"></script>
+  </body>
+</html>
