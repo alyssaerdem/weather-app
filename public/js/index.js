@@ -3,22 +3,23 @@ let submit = document.getElementById("submit");
 let icon = document.getElementById("icon");
 let nameText = document.getElementById("name");
 let actualText = document.getElementById("actual");
-let feelsText = document.getElementById("feels");
 let humidityText = document.getElementById("humidity");
 let windText = document.getElementById("wind");
-let cityText = "Amsterdam";
+let weatherStatusText = document.getElementById("status");
+let cityText = "Barcelona"; // default city
+let card = document.getElementsByClassName("card")[0];
+let loading = document.getElementById("loading");
 
 window.onload = () => {
   loadDefault();
 };
 
-handleChange = (e) => {
+const handleChange = (e) => {
   cityText = e.target.value;
 };
 
-handleSubmit = (e) => {
+const handleSubmit = (e) => {
   e.preventDefault();
-  console.log(cityText);
   fetch(`http://localhost:3000/weather?city=${cityText}`)
     .then((response) => {
       if (response.status !== 200) {
@@ -32,29 +33,34 @@ handleSubmit = (e) => {
       alert(err);
     });
 };
+const updateUI = (data) => {
+  let cityName = data.name;
+  let weatherStatus = data.weather[0].main;
+  let w = window.innerWidth;
+  let h = window.innerHeight;
+  var img = new Image();
 
-updateUI = (data) => {
-  console.log(data);
-  let iconStatus = data.weather[0].main;
-  let iconCode = data.weather[0].icon;
-  let iconurl = "http://openweathermap.org/img/w/" + iconCode + ".png";
+  img.addEventListener("load", () => {
+    document.body.style.backgroundImage = `url(${img.src})`;
+    nameText.innerText = `${data.name}`;
+    actualText.innerText = `${Math.floor(data.main.temp)} °C`;
+    humidityText.innerHTML = `<span class="material-symbols-outlined">
+      humidity_percentage<p> ${Math.floor(data.main.humidity)} %</p>
+      </span>`;
+    windText.innerHTML = `<span class="material-symbols-outlined">
+      air<p> ${Math.floor(data.wind.speed)}km/h </p>
+      </span>`;
+    icon.innerHTML = getIcon(weatherStatus);
+    weatherStatusText.innerText = weatherStatus;
+    city.value = "";
 
-  nameText.innerText = data.name;
-  actualText.innerText = `Temperature ${Math.floor(data.main.temp)} °C`;
-  feelsText.innerText = `Feels like ${Math.floor(data.main.feels_like)} °C`;
-  humidityText.innerText = `Humidity ${Math.floor(data.main.humidity)} %`;
-  windText.innerText = `Wind speed ${Math.floor(data.wind.speed)} km/h`;
-  icon.src = iconurl;
-
-  document.body.style.backgroundImage =
-    "url('https://source.unsplash.com/1600x900/?" +
-    data.name +
-    "&" +
-    data.iconStatus +
-    "')";
+    card.classList.remove("hidden"); // reveal loaded weather data
+    loading.classList.add("hidden"); // hide loading spinner
+  });
+  img.src = `https://source.unsplash.com/${w}x${h}/?${cityName}&${weatherStatus}`;
 };
 
-loadDefault = () => {
+const loadDefault = () => {
   fetch(`http://localhost:3000/weather?city=${cityText}`)
     .then((response) => response.json())
     .then((data) => updateUI(data))
@@ -62,6 +68,46 @@ loadDefault = () => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+const getIcon = (weatherStatus) => {
+  let iconCode = "";
+  weatherStatus = weatherStatus.toLowerCase();
+
+  if (weatherStatus.includes("fog")) {
+    iconCode = `<span id="tempIcon" class="material-symbols-outlined">
+    foggy
+    </span>`;
+  } else if (weatherStatus.includes("mist")) {
+    iconCode = `<span id="tempIcon" class="material-symbols-outlined">
+    foggy
+    </span>`;
+  } else if (weatherStatus.includes("sun")) {
+    iconCode = `<span id="tempIcon" class="material-symbols-outlined">
+    sunny
+    </span>`;
+  } else if (weatherStatus.includes("rain")) {
+    iconCode = `<span id="tempIcon" class="material-symbols-outlined">
+    rainy
+    </span>`;
+  } else if (weatherStatus.includes("snow")) {
+    iconCode = `<span id="tempIcon" class="material-symbols-outlined">
+    snowy
+    </span>`;
+  } else if (weatherStatus.toLowerCase().includes("cloud")) {
+    iconCode = `<span id="tempIcon" class="material-symbols-outlined">
+    cloudy
+    </span>`;
+  } else if (weatherStatus.toLowerCase().includes("haze")) {
+    iconCode = `<span id="tempIcon" class="material-symbols-outlined">
+    dehaze
+    </span>`;
+  } else {
+    iconCode = `<span id="tempIcon" class="material-symbols-outlined">
+    sunny
+    </span>`;
+  }
+  return iconCode;
 };
 
 city.addEventListener("change", handleChange);

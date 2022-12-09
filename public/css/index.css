@@ -1,14 +1,15 @@
 :root {
-  background-color: #deeeff;
+  background-color: #151515;
   font-size: 62.5%;
-  --main: #e4e4e4;
+  --main: #ebebeb;
   --secondary: #4a4a4a;
+  --button: #2b2b2b;
   --shadow: 0 0.4rem 1.4rem 0 rgba(116, 141, 150, 0.5);
 }
 
 * {
   box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
   color: var(--main);
@@ -18,14 +19,8 @@
   width: 100vw;
   height: 100vh;
   margin: auto;
-  font-size: 2rem;
-  max-width: 60%;
-  max-height: 60%;
-}
-
-.container > * {
-  width: 60%;
-  height: 60%;
+  font-size: 1.8rem;
+  overflow: hidden;
 }
 
 h1 {
@@ -34,36 +29,32 @@ h1 {
   text-align: center;
 }
 
-form {
-  padding-top: 4rem;
-}
-
-label {
-  padding-bottom: 1rem;
+span > p {
+  display: inline;
 }
 
 .text-box {
-  font-size: 2rem;
-  padding: 1rem;
-  margin-right: 5.5rem;
-  width: 18rem;
-  text-align: center;
+  font-size: 1.5rem;
+  padding: 0.75rem;
+  width: 25rem;
+  text-align: left;
   border: 0.1rem solid var(--main);
   margin-bottom: 1rem;
   color: var(--secondary);
   background-color: white;
-  border-radius: 10px;
+  border-radius: 15px;
 }
 
 .btn {
-  font-size: 1.8rem;
-  padding: 1rem;
+  font-size: 1.5rem;
+  padding: 0.75rem;
   width: 10rem;
   text-align: center;
   border: 0.1rem solid var(--main);
   margin-bottom: 1rem;
-  color: var(--secondary);
-  background-color: white;
+  margin-left: -3rem;
+  color: var(--main);
+  background-color: var(--button);
   border-radius: 15px;
   text-decoration: none;
 }
@@ -77,13 +68,37 @@ label {
 }
 
 .card {
-  background-color: #000;
-  color: #fff;
-  opacity: 0.9;
+  background-color: rgba(19, 19, 19, 0.98);
+  opacity: 0.85;
   border-radius: 20px;
   position: relative;
-  box-shadow: rgba(0, 30, 43, 0.3) 0px 4px 10px -4px;
+  box-shadow: rgba(97, 97, 97, 0.3) 0px 4px 10px -4px;
   transition: 0.3s;
+  padding: 1rem;
+}
+
+#weather > div {
+  display: flex;
+  padding: 1rem;
+  width: 100%;
+}
+
+#weather > div > p {
+  padding: 1rem;
+  width: 50%;
+}
+
+#name {
+  font-size: 3rem;
+}
+
+#actual {
+  font-size: 6rem;
+}
+
+#tempIcon {
+  font-size: 8rem;
+  margin-left: 5rem;
 }
 
 .flex-column {
@@ -105,19 +120,38 @@ label {
   display: none;
 }
 
-#weather > div {
-  display: flex;
-  padding: 1rem;
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
 }
-
-#weather > div > p {
-  padding: 1rem;
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid var(--main);
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: var(--main) transparent transparent transparent;
 }
-
-#name {
-  font-size: 3rem;
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
 }
-
-#icon {
-  padding-left: 5rem;
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

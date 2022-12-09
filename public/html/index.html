@@ -6,38 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
     <link rel="stylesheet" href="/public/css/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet"> 
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 600, "GRAD" 0;
+        font-size: 2rem;
+      }
+    </style>
   </head>
   <body>
     <div class="container flex-column flex-center">
-      <div class="card">
-      <h1>Weather App</h1>
-      <div id="weather" class="flex-column flex-center">
-        <div id="info">
-        <p id="name"></p>
-        <img id="icon" src=""></a>
-      </div>
-        <div id="temp">
-          <p id="actual"></p>
-          <p id="feels"></p>
-        </div>
-        <div>
-          <p id="humidity"></p>
-          <p id="wind"></p>
+      <div id="loading" class="flex-center flex-column">
+        <h1>Weather App</h1>
+        <div class="lds-ring">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
       </div>
-      <form action="" method="post" class="flex-row flex-center">
-        <label for="city"></label>
-        <input
-          type="text"
-          city="city"
-          id="city"
-          required
-          class="text-box"
-          placeholder="City..."
-        />
-        <input type="submit" id="submit" value="Search" class="btn" />
-      </form>
-    </div>
+      <div class="card hidden">
+        <h1 id="name">Weather App</h1>
+        <div id="weather" class="flex-column flex-center">
+          <div id="temp">
+            <p id="actual"></p>
+            <p id="icon"></p>
+          </div>
+          <div id="info">
+            <p id="humidity"></p>
+            <p id="wind"></p>
+            <p id="status"></p>
+          </div>
+          <div>
+          <p><input
+            type="text"
+            city="city"
+            id="city"
+            required
+            class="text-box"
+            placeholder="Enter City..."
+          /></p>
+         <p><input type="submit" id="submit" value="Search" class="btn" /></p>
+        </div>
+      </div>
     </div>
     <script src="/public/js/index.js"></script>
   </body>

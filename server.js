@@ -16,12 +16,12 @@ app.get("/", (req, res) => {
 });
 
 app.get("/weather", (req, res) => {
-  console.log(req.query.city);
   let url = `https://api.openweathermap.org/data/2.5/weather?q=${req.query.city}&units=metric&appid=${process.env.API_KEY}`;
   axios
     .get(url)
     .then((response) => res.send(response.data))
     .catch((error) => {
+      console.log(error);
       if (error.response) {
         console.log(error.response.status);
         res.sendStatus(error.response.status);
